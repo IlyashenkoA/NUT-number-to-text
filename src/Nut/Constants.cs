@@ -19,6 +19,7 @@
         public const string Belarusian = "by";
         public const string Portuguese = "pt";
         public const string German = "de";
+        public const string Latvian = "lv";
     }
 
     public static class Culture
@@ -37,6 +38,7 @@
         public const string Belarusian = "by-BY";
         public const string PortugueseBR = "pt-BR";
         public const string GermanDE = "de-DE";
+        public const string LatvianLV = "lv-LV";
     }
 
     public static class Currency

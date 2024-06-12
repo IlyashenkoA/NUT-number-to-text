@@ -62,6 +62,10 @@ namespace Nut
                 case Culture.GermanDE:
                     text = GermanConverter.Instance.ToText(num);
                     break;
+                case Language.Latvian:
+                case Culture.LatvianLV:
+                    text = LatvianConverter.Instance.ToText(num);
+                    break;
             }
             return text;
         }
