@@ -110,7 +110,10 @@ namespace Nut
                     return PortugueseConverter.Instance.ToText(num, currency, options);
                 case Language.German:
                 case Culture.GermanDE:
-                    return GermanConverter.Instance.ToText(num, currency, options);              
+                    return GermanConverter.Instance.ToText(num, currency, options);     
+                case Language.Latvian:
+                case Culture.LatvianLV:
+                    return LatvianConverter.Instance.ToText(num, currency, options);
                 default:
                     return string.Empty;
             }
