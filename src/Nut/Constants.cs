@@ -56,5 +56,6 @@
         public const string ARS = "ars";
         public const string BRL = "brl";
         public const string GBP = "gbp";
+        public const string CAD = "cad";
     }
 }

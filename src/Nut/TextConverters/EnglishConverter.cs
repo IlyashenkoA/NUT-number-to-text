@@ -5,7 +5,6 @@ namespace Nut.TextConverters
 {
     public sealed class EnglishConverter : BaseConverter
     {
-
         private static readonly Lazy<EnglishConverter> Lazy = new Lazy<EnglishConverter>(() => new EnglishConverter());
         public static EnglishConverter Instance => Lazy.Value;
 
@@ -114,14 +113,22 @@ namespace Nut.TextConverters
                         Names = new[] { "Belarusian ruble", "Belarusian rubles" },
                         SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "kopek", "kopeks" } }
                     };
-				case Currency.GBP:
-					return new CurrencyModel
-					{
-						Currency = currency,
-						Names = new[] { "pound", "pounds" },
-						SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "pence", "pence" } }
-					};
-			}
+                case Currency.GBP:
+                    return new CurrencyModel
+                    {
+                        Currency = currency,
+                        Names = new[] { "pound", "pounds" },
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "pence", "pence" } }
+                    };
+                case Currency.CAD:
+                    return new CurrencyModel
+                    {
+                        Currency = currency,
+                        Names = new[] { "Canadian dollar", "Canadian dollars" },
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "cent", "cents" } }
+                    };
+            }
+
             return null;
         }
     }
