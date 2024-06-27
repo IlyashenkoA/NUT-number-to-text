@@ -61,14 +61,14 @@ namespace Nut.TextConverters
                     {
                         Currency = currency,
                         Names = new[] { "eiro", "eiro" },
-                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "cents", "centi" } }
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "centi", "centi" } }
                     };
                 case Currency.USD:
                     return new CurrencyModel
                     {
                         Currency = currency,
                         Names = new[] { "dolārs", "dolāri" },
-                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "cents", "centi" } }
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "centi", "centi" } }
                     };
                 case Currency.RUB:
                     return new CurrencyModel
@@ -125,7 +125,7 @@ namespace Nut.TextConverters
                     {
                         Currency = currency,
                         Names = new[] { "kanādas dolārs", "kanādas dolāri" },
-                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "cents", "centi" } }
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "centi", "centi" } }
                     };
             }
 
