@@ -14,7 +14,7 @@ namespace Nut.Demo
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NumberToText());
+            Application.Run(new MoneyToText());
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Nut.Models;
 
 namespace Nut.TextConverters
@@ -13,6 +14,61 @@ namespace Nut.TextConverters
         public LatvianConverter()
         {
             Initialize();
+        }
+        
+        protected override long Append(long num, long scale, StringBuilder builder)
+        {
+            if (num > scale - 1)
+            {
+                var baseScale = num / scale;
+
+                var textType = GetTextType(baseScale);
+                AppendLessThanOneThousand(baseScale, builder);
+
+                switch (textType)
+                {
+                    case 1:
+                        builder.AppendFormat("{0} ", ScaleTexts[scale][1]);
+                        break;
+                    default:
+                        builder.AppendFormat("{0} ", ScaleTexts[scale][0]);
+                        break;
+                }
+
+                num = num - (baseScale * scale);
+            }
+            return num;
+        }
+        
+        private byte GetTextType(long num)
+        {
+            if (num > 1)
+            {
+                return 1;
+            }
+            return 0;
+        }
+        
+        protected override long AppendHundreds(long num, StringBuilder builder)
+        {
+            if (num > 99)
+            {
+                var hundreds = num / 100;
+                builder.AppendFormat("{0} {1} ", NumberTexts[hundreds][0], hundreds > 1 ? NumberTexts[100][1] : NumberTexts[100][0]);
+                num = num - (hundreds * 100);
+            }
+            return num;
+        }
+        
+        protected override string GetSubUnitCurrencyText(long num, CurrencyModel currency)
+        {
+            var lastDigit = num % 10;
+            if ((lastDigit == 1 && num > 20) || num == 1)
+            {
+                return currency.SubUnitCurrency.Names[0];
+            }
+            
+            return currency.SubUnitCurrency.Names[1];
         }
 
         private void Initialize()
@@ -45,11 +101,11 @@ namespace Nut.TextConverters
             NumberTexts.Add(70, new[] { "septiņdesmit" });
             NumberTexts.Add(80, new[] { "astoņdesmit" });
             NumberTexts.Add(90, new[] { "deviņdesmit" });
-            NumberTexts.Add(100, new[] { "simts" });
+            NumberTexts.Add(100, new[] { "simts", "simti" });
 
-            ScaleTexts.Add(1000000000, new[] { "miljards" });
-            ScaleTexts.Add(1000000, new[] { "miljons" });
-            ScaleTexts.Add(1000, new[] { "tūkstotis" });
+            ScaleTexts.Add(1000000000, new[] { "miljards", "miljardi" });
+            ScaleTexts.Add(1000000, new[] { "miljons", "miljoni" });
+            ScaleTexts.Add(1000, new[] { "tūkstotis", "tūkstoši" });
         }
 
         protected override CurrencyModel GetCurrencyModel(string currency)
@@ -60,15 +116,15 @@ namespace Nut.TextConverters
                     return new CurrencyModel
                     {
                         Currency = currency,
-                        Names = new[] { "eiro", "eiro" },
-                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "centi", "centi" } }
+                        Names = new[] { "euro", "euro" },
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "cents", "centi" } }
                     };
                 case Currency.USD:
                     return new CurrencyModel
                     {
                         Currency = currency,
                         Names = new[] { "dolārs", "dolāri" },
-                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "centi", "centi" } }
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "cents", "centi" } }
                     };
                 case Currency.RUB:
                     return new CurrencyModel
@@ -125,7 +181,7 @@ namespace Nut.TextConverters
                     {
                         Currency = currency,
                         Names = new[] { "kanādas dolārs", "kanādas dolāri" },
-                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "centi", "centi" } }
+                        SubUnitCurrency = new BaseCurrencyModel { Names = new[] { "cents", "centi" } }
                     };
             }
 
